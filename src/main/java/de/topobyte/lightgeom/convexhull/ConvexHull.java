@@ -35,6 +35,11 @@
 
 package de.topobyte.lightgeom.convexhull;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import de.topobyte.lightgeom.lina.Point;
+
 /**
  * Computes the convex hull of a set of points using the monotone chain convex
  * hull algorithm (aka Andrew's algorithm).
@@ -46,18 +51,38 @@ public class ConvexHull
 
 	private final IntArray quicksortStack = new IntArray();
 	private float[] sortedPoints;
-	private final FloatArray hull = new FloatArray();
+	private final PointArray hull = new PointArray();
 	private final IntArray indices = new IntArray();
 	private final ShortArray originalIndices = new ShortArray(false, 0);
 
+	public List<Point> computePolygon(List<Point> points)
+	{
+		final int nPoints = points.size();
+		float[] values = new float[nPoints * 2];
+		for (int i = 0; i < nPoints; i++) {
+			Point point = points.get(i);
+			values[2 * i] = (float) point.x;
+			values[2 * i + 1] = (float) point.y;
+		}
+		List<Point> result = new ArrayList<>();
+		PointArray polygon = computePolygon(values, false);
+		int nResultPoints = polygon.size / 2;
+		for (int i = 0; i < nResultPoints; i++) {
+			float x = polygon.items[2 * i];
+			float y = polygon.items[2 * i + 1];
+			result.add(new Point(x, y));
+		}
+		return result;
+	}
+
 	/** @see #computePolygon(float[], int, int, boolean) */
-	public FloatArray computePolygon(FloatArray points, boolean sorted)
+	public PointArray computePolygon(FloatArray points, boolean sorted)
 	{
 		return computePolygon(points.items, 0, points.size, sorted);
 	}
 
 	/** @see #computePolygon(float[], int, int, boolean) */
-	public FloatArray computePolygon(float[] polygon, boolean sorted)
+	public PointArray computePolygon(float[] polygon, boolean sorted)
 	{
 		return computePolygon(polygon, 0, polygon.length, sorted);
 	}
@@ -81,7 +106,7 @@ public class ConvexHull
 	 *         counterclockwise order. Note the returned array is reused for
 	 *         later calls to the same method.
 	 */
-	public FloatArray computePolygon(float[] points, int offset, int count,
+	public PointArray computePolygon(float[] points, int offset, int count,
 			boolean sorted)
 	{
 		int end = offset + count;
@@ -96,7 +121,7 @@ public class ConvexHull
 			sort(points, count);
 		}
 
-		FloatArray hull = this.hull;
+		PointArray hull = this.hull;
 		hull.clear();
 
 		// Lower hull.
