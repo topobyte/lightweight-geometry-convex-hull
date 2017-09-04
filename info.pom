@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <name>Lightweight Geometry - Convex Hull module</name>
+  <description>A lightweight geometry library</description>
+  <url>https://github.com/topobyte/lightweight-geometry</url>
+  <licenseName>The Apache Software License, Version 2.0</licenseName>
+  <licenseUrl>https://www.apache.org/licenses/LICENSE-2.0.txt</licenseUrl>
+  <licenseDistribution>repo</licenseDistribution>
+</project>
