@@ -283,7 +283,6 @@ public class ConvexHull
 		int up = upper;
 		int down = lower;
 		float temp;
-		short tempIndex;
 		while (down < up) {
 			while (down < up && values[down] <= x) {
 				down = down + 2;
