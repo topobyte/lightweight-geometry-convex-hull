@@ -39,8 +39,8 @@ import java.util.Arrays;
 
 /**
  * A resizable, ordered or unordered short array. Avoids the boxing that occurs
- * with ArrayList<Short>. If unordered, this class avoids a memory copy when
- * removing elements (the last element is moved to the removed element's
+ * with {@code ArrayList<Short>}. If unordered, this class avoids a memory copy
+ * when removing elements (the last element is moved to the removed element's
  * position).
  * 
  * @author Nathan Sweet
