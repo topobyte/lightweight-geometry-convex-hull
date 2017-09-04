@@ -504,7 +504,7 @@ public class ShortArray
 		short[] items1 = this.items;
 		short[] items2 = array.items;
 		for (int i = 0; i < n; i++) {
-			if (items[i] != array.items[i]) {
+			if (items1[i] != items2[i]) {
 				return false;
 			}
 		}
